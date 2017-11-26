@@ -1,1 +1,0 @@
-# arturminsksum.github.io
