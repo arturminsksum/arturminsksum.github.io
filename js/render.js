@@ -1,11 +1,10 @@
 class Render {
   constructor(data, info, id) {
     this.info = data[info];
-    this.id = id;
+    this.container = document.getElementById(id);
   }
   insertHTML(markup) {
-    const container = document.getElementById(this.id);
-    container.innerHTML = markup;
+    this.container.innerHTML = markup;
   }
 }
 
@@ -40,8 +39,9 @@ export class RenderArticleList extends Render {
           title,
           url: link,
           description: text,
-          publishedAt: date
+          publishedAt
         } = item;
+        const date = publishedAt.slice(0, 10);
         return `
           ${index % 3 ? "" : '<div class="columns">'}
             <div class="column is-one-third">
@@ -64,10 +64,7 @@ export class RenderArticleList extends Render {
                     ${text}
                     <br>
                     <br>
-                    <i>Date: <time datetime="${date.slice(0, 10)}">${date.slice(
-          0,
-          10
-        )}</time></i>
+                    <i>Date: <time datetime="${date}">${date}</time></i>
                   </div>
                 </div>
               </div>

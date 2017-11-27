@@ -1,0 +1,12 @@
+{
+  "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe",
+  "editor.fontSize": 16,
+  "editor.tabSize": 2,
+  "editor.renderWhitespace": "boundary",
+  "editor.wordWrap": "on",
+  "files.autoSave": "onWindowChange",
+  "workbench.panel.location": "bottom",
+  "window.zoomLevel": 0,
+  "files.trimTrailingWhitespace": true,
+  "editor.formatOnSave": true
+}
