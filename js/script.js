@@ -27,19 +27,24 @@ const getArticles = url => {
     });
 };
 
-// get news channel
-promise(urlSources)
-  .then(response => {
-    return response.json();
-  })
-  .then(data => {
-    let renderSources = new RenderSourceList(data, "sources", "sources-list");
-    renderSources.insertHTML();
-  })
-  .catch(error => new Error(error));
+const init = () => {
+  // get news channel
+  promise(urlSources)
+    .then(response => {
+      return response.json();
+    })
+    .then(data => {
+      let renderSources = new RenderSourceList(data, "sources", "sources-list");
+      renderSources.insertHTML();
+    })
+    .catch(error => new Error(error));
 
-// get default articles
-getArticles(urlDefault);
+  // get default articles
+  getArticles(urlDefault);
+};
+
+// initialize loading page
+init();
 
 // load articles from choosed channel
 document.addEventListener("click", e => {
