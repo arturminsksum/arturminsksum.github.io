@@ -1,16 +1,12 @@
 import { RenderSourceList, RenderArticleList } from "./render.js";
 import promise from "./promise.js";
+import generateUrl from "./generateUrl.js";
 
-const apiKey = "5df48f0ee1184466b3bd5a825d888184";
-const urlSources = `
-https://newsapi.org/v2/sources?
-language=en&
-apiKey=${apiKey}
-`;
-const urlDefault = `
-https://newsapi.org/v2/top-headlines?sources=the-next-web,the-verge&apiKey=${
-  apiKey
-}`;
+const urlSources = generateUrl("sources", "language=en");
+const urlDefault = generateUrl(
+  "top-headlines",
+  "sources=the-next-web,the-verge"
+);
 
 const getArticles = url => {
   promise(url)
@@ -49,11 +45,7 @@ init();
 // load articles from choosed channel
 document.addEventListener("click", e => {
   if (e.target.dataset.id) {
-    const url = `
-    https://newsapi.org/v2/everything?sources=${e.target.dataset.id}&apiKey=${
-      apiKey
-    }
-    `;
+    const url = generateUrl("everything", `sources=${e.target.dataset.id}`);
     getArticles(url);
   }
 });
