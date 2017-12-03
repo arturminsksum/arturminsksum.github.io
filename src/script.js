@@ -1,5 +1,3 @@
-import "babel-polyfill";
-
 class App {
   constructor(API, apiKey) {
     this.API = API;
