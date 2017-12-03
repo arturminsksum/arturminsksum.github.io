@@ -1,3 +1,5 @@
+import "babel-polyfill";
+
 class App {
   constructor(API, apiKey) {
     this.API = API;
@@ -145,6 +147,7 @@ class App {
     this.articlesParams = params;
   }
 
+  // load Channel Articles
   loadChannelArticles() {
     document.addEventListener("click", e => {
       if (e.target.dataset.id) {
@@ -168,4 +171,10 @@ class App {
   }
 }
 
-export default App;
+const API = "https://newsapi.org/v2";
+const apiKey = "5df48f0ee1184466b3bd5a825d888184";
+
+const app = new App(API, apiKey);
+app.init();
+app.getSourcesDefaults;
+app.getSourcesDefaults;
