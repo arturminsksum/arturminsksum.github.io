@@ -17,8 +17,7 @@
   },
   "scripts": {
     "build": "babel --plugins transform-es2015-modules-commonjs src -d js",
-    "watch": "babel -w src -d js",
-    "webpack:dev-server": "webpack-dev-server --progress --profile --colors"
+    "watch": "babel -w src -d js"
   },
   "repository": {
     "type": "git",

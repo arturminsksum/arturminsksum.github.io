@@ -8,4 +8,9 @@ app.init();
 app.getSourcesDefaults;
 app.getSourcesDefaults;
 
-// alert("123");
+if (module.hot) {
+  module.hot.accept("./app.js", function() {
+    console.log("hot-reload");
+    app.init();
+  });
+}

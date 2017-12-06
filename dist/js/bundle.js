@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "e727d486e75dc6bc9bc0"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "8da400de326e91cf50c9"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -745,6 +745,8 @@ var app = new _app2.default(API, apiKey);
 app.init();
 app.getSourcesDefaults;
 app.getSourcesDefaults;
+
+// alert("123");
 
 /***/ }),
 /* 1 */
