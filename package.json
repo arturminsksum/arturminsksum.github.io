@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "babel-polyfill": "^6.26.0",
+    "core-js": "^2.5.1",
     "webpack": "^3.10.0",
     "whatwg-fetch": "^2.0.3"
   },
@@ -13,11 +13,12 @@
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.1",
+    "html-webpack-plugin": "^2.30.1",
     "webpack-dev-server": "^2.9.5"
   },
   "scripts": {
-    "build": "babel --plugins transform-es2015-modules-commonjs src -d js",
-    "watch": "babel -w src -d js"
+    "build": "webpack",
+    "watch": "webpack-dev-server  --inline --hot"
   },
   "repository": {
     "type": "git",

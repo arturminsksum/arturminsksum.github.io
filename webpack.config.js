@@ -1,10 +1,13 @@
 const webpack = require("webpack");
 const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   entry: [
-    "webpack-dev-server/client",
-    "webpack/hot/only-dev-server",
+    // "webpack-dev-server/client",
+    // "webpack/hot/only-dev-server",
+    "core-js/es6/promise",
+    "whatwg-fetch",
     "./src/script.js"
   ],
   output: {
@@ -27,10 +30,16 @@ module.exports = {
     hot: true,
     host: "localhost",
     port: 3000,
-    contentBase: "./dist",
+    contentBase: "./src",
     watchOptions: {
       aggregateTimeout: 100
     }
   },
-  plugins: [new webpack.HotModuleReplacementPlugin()]
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new HtmlWebpackPlugin({
+      // Also generate a test.html
+      template: "dist/index.html"
+    })
+  ]
 };

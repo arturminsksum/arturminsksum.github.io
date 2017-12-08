@@ -166,7 +166,6 @@ class App {
     this.getArticles(this.articlesId);
     // load Channel Articles
     this.loadChannelArticles();
-    alert("123");
   }
 }
 
