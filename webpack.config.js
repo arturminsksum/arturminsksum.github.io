@@ -3,13 +3,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  entry: [
-    // "webpack-dev-server/client",
-    // "webpack/hot/only-dev-server",
-    "core-js/es6/promise",
-    "whatwg-fetch",
-    "./src/script.js"
-  ],
+  entry: ["core-js/es6/promise", "whatwg-fetch", "./src/script.js"],
   output: {
     path: path.resolve(__dirname, "dist/js"),
     filename: "bundle.js"
@@ -32,7 +26,8 @@ module.exports = {
     port: 3000,
     contentBase: "./src",
     watchOptions: {
-      aggregateTimeout: 100
+      aggregateTimeout: 100,
+      ignored: /node_modules/
     }
   },
   plugins: [
