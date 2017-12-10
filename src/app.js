@@ -1,3 +1,5 @@
+import "./app.scss";
+
 class App {
   constructor(API, apiKey) {
     this.API = API;

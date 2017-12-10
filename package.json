@@ -4,24 +4,33 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "babel-runtime": "^6.26.0",
     "core-js": "^2.5.1",
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
+    "autoprefixer": "^7.2.2",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
+    "babel-plugin-dynamic-import-webpack": "^1.0.2",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.1",
+    "clean-webpack-plugin": "^0.1.17",
+    "css-loader": "^0.28.7",
     "html-webpack-plugin": "^2.30.1",
     "node-sass": "^4.7.2",
+    "postcss-loader": "^2.0.9",
     "sass-loader": "^6.0.6",
+    "style-loader": "^0.19.0",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.9.5",
     "webpack-merge": "^4.1.1"
   },
   "scripts": {
-    "build": "webpack --config webpack/webpack.prod.js",
-    "watch": "webpack-dev-server --config webpack/webpack.dev.js"
+    "webpack:dev": "webpack --config webpack/webpack.dev.js",
+    "webpack:prod": "webpack --config webpack/webpack.prod.js",
+    "webpack:watch": "webpack-dev-server --config webpack/webpack.dev.js"
   },
   "repository": {
     "type": "git",

@@ -1,11 +1,18 @@
 const webpack = require("webpack");
 const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CleanWebpackPlugin = require("clean-webpack-plugin");
+const autoprefixer = require("autoprefixer");
 
 module.exports = {
-  entry: ["core-js/es6/promise", "whatwg-fetch", "./src/script.js"],
+  entry: {
+    main: "./src/main.js",
+    polyfills: ["core-js/es6/promise", "whatwg-fetch"]
+  },
   output: {
-    path: path.resolve(__dirname, "../dist/js"),
-    filename: "bundle.js"
+    // publicPath: "/",
+    // path: path.resolve(__dirname, "../dist"),
+    filename: "dist/js/[name].bundle.js"
   },
   module: {
     rules: [
@@ -15,7 +22,51 @@ module.exports = {
         use: {
           loader: "babel-loader"
         }
+      },
+      {
+        test: /\.scss$/,
+        exclude: /(node_modules)/,
+        use: [
+          {
+            loader: "style-loader"
+          },
+          {
+            loader: "css-loader",
+            options: {
+              sourceMap: true
+            }
+          },
+          {
+            loader: "postcss-loader",
+            options: {
+              plugins: [
+                autoprefixer({
+                  browsers: ["ie >= 10", "last 4 version"]
+                })
+              ],
+              sourceMap: true
+            }
+          },
+          {
+            loader: "sass-loader",
+            options: {
+              sourceMap: true
+            }
+          }
+        ]
       }
     ]
-  }
+  },
+  plugins: [
+    new CleanWebpackPlugin(["dist"], {
+      root: path.resolve(__dirname, ".."),
+      verbose: true,
+      dry: false
+    }),
+    new HtmlWebpackPlugin({
+      filename: "index.html",
+      template: "src/index.html",
+      chunks: ["main", "polyfills"]
+    })
+  ]
 };
