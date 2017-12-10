@@ -20,8 +20,8 @@
     "webpack-merge": "^4.1.1"
   },
   "scripts": {
-    "build": "webpack",
-    "watch": "webpack-dev-server  --inline --hot"
+    "build": "webpack --config webpack/webpack.prod.js",
+    "watch": "webpack-dev-server --config webpack/webpack.dev.js"
   },
   "repository": {
     "type": "git",

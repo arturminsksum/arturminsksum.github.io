@@ -1,24 +1,10 @@
 const webpack = require("webpack");
-const path = require("path");
+const merge = require("webpack-merge");
+const common = require("./webpack.common.js");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
-module.exports = {
-  entry: ["core-js/es6/promise", "whatwg-fetch", "./src/script.js"],
-  output: {
-    path: path.resolve(__dirname, "dist/js"),
-    filename: "bundle.js"
-  },
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        exclude: /(node_modules)/,
-        use: {
-          loader: "babel-loader"
-        }
-      }
-    ]
-  },
+module.exports = merge(common, {
+  devtool: "inline-source-map",
   devServer: {
     inline: true,
     hot: true,
@@ -33,8 +19,7 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
-      // Also generate a test.html
       template: "dist/index.html"
     })
   ]
-};
+});
