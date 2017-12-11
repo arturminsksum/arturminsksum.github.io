@@ -1,4 +1,5 @@
 import "./main.scss";
+import example from "./example.json";
 
 const API = "https://newsapi.org/v2";
 const apiKey = "5df48f0ee1184466b3bd5a825d888184";
@@ -13,3 +14,5 @@ button.addEventListener("click", () => {
     document.body.removeChild(document.getElementById("load"));
   });
 });
+
+console.log(example);
