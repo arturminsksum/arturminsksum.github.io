@@ -54,18 +54,18 @@ module.exports = {
             }
           }
         ]
-      },
-      {
-        test: /\.json$/,
-        use: [
-          {
-            loader: path.resolve("webpack/json-filter-loader.js"),
-            options: {
-              /* ... */
-            }
-          }
-        ]
       }
+      // {
+      //   test: /\.json$/,
+      //   use: [
+      //     {
+      //       loader: path.resolve("webpack/json-filter-loader.js"),
+      //       options: {
+      //         /* ... */
+      //       }
+      //     }
+      //   ]
+      // }
     ]
   },
   plugins: [
