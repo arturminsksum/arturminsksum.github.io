@@ -1,4 +1,5 @@
 import "./app.scss";
+import { RenderSourcesList, RenderArticlesList } from "./render";
 
 class App {
   constructor(API, apiKey) {
@@ -58,72 +59,17 @@ class App {
     return fetch(url).catch(error => new Error(error));
   }
 
-  insertHTML(markup, id) {
-    const container = document.getElementById(id);
-    container.innerHTML = markup;
-  }
-
-  renderSourcesList(data, id) {
-    const markup = `
-		${data
-      .map(item => {
-        const { id, name } = item;
-        return `<li><a href="javascript:void(0)" data-id="${id}">${name}</a></li>`;
-      })
-      .join("")}
-    `;
-    this.insertHTML(markup, id);
-  }
-
-  renderArticlesList(data, id) {
-    const markup = `
-		${data
-      .map((item, index) => {
-        const {
-          urlToImage: image,
-          title,
-          url: link,
-          description: text,
-          publishedAt
-        } = item;
-        const date = publishedAt.slice(0, 10);
-        return `
-          ${index % 3 ? "" : '<div class="columns">'}
-            <div class="column is-one-third">
-              <div class="card">
-                <div class="card-image">
-                  <figure class="image is-4by3">
-                    <img src="${
-                      image
-                        ? image
-                        : "https://bulma.io/images/placeholders/1280x960.png"
-                    }" alt="${title}">
-                  </figure>
-                </div>
-                <div class="card-content">
-                  <a href="${link}" class="media">
-                    <p class="title is-4">${title}</p>
-                  </a>
-
-                  <div class="content">
-                    ${text}
-                    <br>
-                    <br>
-                    <i>Date: <time datetime="${date}">${date}</time></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ${(index + 1) % 3 ? "" : "</div>"}
-        `;
-      })
-      .join("")}
-	  `;
-    this.insertHTML(markup, id);
-  }
-
   renderSection(type, data, id) {
-    this["render" + type + "List"](data, id);
+    let render;
+    switch (type) {
+      case "Sources":
+        render = new RenderSourcesList(data, id);
+        break;
+      case "Articles":
+        render = new RenderArticlesList(data, id);
+        break;
+    }
+    render.insertHTML();
   }
 
   // get news channels
