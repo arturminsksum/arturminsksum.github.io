@@ -1,5 +1,6 @@
 import "./app.scss";
 import { RenderSourcesList, RenderArticlesList } from "./render";
+import { decorateOrderedList, decorateUnorderedList } from "./decorators";
 
 class App {
   constructor(API, apiKey) {
@@ -64,6 +65,7 @@ class App {
     switch (type) {
       case "Sources":
         render = new RenderSourcesList(data, id);
+        decorateOrderedList(render);
         break;
       case "Articles":
         render = new RenderArticlesList(data, id);
