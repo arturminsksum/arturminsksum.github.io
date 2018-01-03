@@ -2,6 +2,10 @@ import "./app.scss";
 
 class App {
   constructor(API, apiKey) {
+    if (App.instance) {
+      return App.instance;
+    }
+
     this.API = API;
     this.apiKey = apiKey;
     this.sourcesUrl = "sources";
@@ -10,6 +14,8 @@ class App {
     this.articlesUrl = "top-headlines";
     this.articlesParams = "sources=the-next-web,the-verge";
     this.articlesId = "articles-list";
+
+    App.instance = this;
   }
 
   get getSourcesDefaults() {
@@ -62,9 +68,7 @@ class App {
 		${data
       .map(item => {
         const { id, name } = item;
-        return `<li><a href="javascript:void(0)" data-id="${id}">${
-          name
-        }</a></li>`;
+        return `<li><a href="javascript:void(0)" data-id="${id}">${name}</a></li>`;
       })
       .join("")}
     `;
