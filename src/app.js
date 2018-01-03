@@ -75,18 +75,6 @@ class App {
     this.insertHTML(markup, id);
   }
 
-  // get news channels
-  getSources(id) {
-    this.request(this.generateUrl(this.sourcesUrl, this.sourcesParams))
-      .then(response => {
-        return response.json();
-      })
-      .then(data => {
-        this.renderSourcesList(data.sources, id);
-      })
-      .catch(error => new Error(error));
-  }
-
   renderArticlesList(data, id) {
     const markup = `
 		${data
@@ -134,6 +122,22 @@ class App {
     this.insertHTML(markup, id);
   }
 
+  renderSection(type, data, id) {
+    this["render" + type + "List"](data, id);
+  }
+
+  // get news channels
+  getSources(id) {
+    this.request(this.generateUrl(this.sourcesUrl, this.sourcesParams))
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {
+        this.renderSection("Sources", data.sources, id);
+      })
+      .catch(error => new Error(error));
+  }
+
   // get articles
   getArticles(id) {
     this.request(this.generateUrl(this.articlesUrl, this.articlesParams))
@@ -141,7 +145,7 @@ class App {
         return response.json();
       })
       .then(data => {
-        this.renderArticlesList(data.articles, id);
+        this.renderSection("Articles", data.articles, id);
       })
       .catch(error => new Error(error));
   }
