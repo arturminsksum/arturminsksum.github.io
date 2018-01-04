@@ -1,6 +1,6 @@
-import "./app.scss";
-import { RenderSourcesList, RenderArticlesList } from "./render";
-import { decorateOrderedList, decorateUnorderedList } from "./decorators";
+import './app.scss';
+import { RenderSourcesList, RenderArticlesList } from './render';
+import SourcesListDecorator from './decorators';
 
 class App {
   constructor(API, apiKey) {
@@ -10,18 +10,18 @@ class App {
 
     this.API = API;
     this.apiKey = apiKey;
-    this.sourcesUrl = "sources";
-    this.sourcesParams = "language=en";
-    this.sourcesId = "sources-list";
-    this.articlesUrl = "top-headlines";
-    this.articlesParams = "sources=the-next-web,the-verge";
-    this.articlesId = "articles-list";
+    this.sourcesUrl = 'sources';
+    this.sourcesParams = 'language=en';
+    this.sourcesId = 'sources-list';
+    this.articlesUrl = 'top-headlines';
+    this.articlesParams = 'sources=the-next-web,the-verge';
+    this.articlesId = 'articles-list';
 
     App.instance = this;
   }
 
   get getSourcesDefaults() {
-    console.log(
+    return console.log(
       `this.sourcesUrl: ${this.sourcesUrl}\n`,
       `this.sourcesParams: ${this.sourcesParams}\n`,
       `this.sourcesId: ${this.sourcesId}`
@@ -37,7 +37,7 @@ class App {
   }
 
   get getArticlesDefaults() {
-    console.log(
+    return console.log(
       `this.articlesUrl: ${this.articlesUrl}\n`,
       `this.articlesParams: ${this.articlesParams}\n`,
       `this.articlesId: ${this.articlesId}`
@@ -63,12 +63,14 @@ class App {
   renderSection(type, data, id) {
     let render;
     switch (type) {
-      case "Sources":
+      case 'Sources':
         render = new RenderSourcesList(data, id);
-        decorateOrderedList(render);
+        render = new SourcesListDecorator(render);
         break;
-      case "Articles":
+      case 'Articles':
         render = new RenderArticlesList(data, id);
+        break;
+      default:
         break;
     }
     render.insertHTML();
@@ -77,24 +79,16 @@ class App {
   // get news channels
   getSources(id) {
     this.request(this.generateUrl(this.sourcesUrl, this.sourcesParams))
-      .then(response => {
-        return response.json();
-      })
-      .then(data => {
-        this.renderSection("Sources", data.sources, id);
-      })
+      .then(response => response.json())
+      .then(data => this.renderSection('Sources', data.sources, id))
       .catch(error => new Error(error));
   }
 
   // get articles
   getArticles(id) {
     this.request(this.generateUrl(this.articlesUrl, this.articlesParams))
-      .then(response => {
-        return response.json();
-      })
-      .then(data => {
-        this.renderSection("Articles", data.articles, id);
-      })
+      .then(response => response.json())
+      .then(data => this.renderSection('Articles', data.articles, id))
       .catch(error => new Error(error));
   }
 
@@ -105,10 +99,10 @@ class App {
 
   // load Channel Articles
   loadChannelArticles() {
-    document.addEventListener("click", e => {
+    document.addEventListener('click', e => {
       if (e.target.dataset.id) {
         this.changeArticlesUrlParams(
-          "everything",
+          'everything',
           `sources=${e.target.dataset.id}`
         );
         this.getArticles(this.articlesId);

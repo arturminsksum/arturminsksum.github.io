@@ -1,17 +1,12 @@
-export const decorateOrderedList = list => {
-  const markup = list.createMarkup();
-  list.createMarkup = () => {
-    return `
-      <ol class="menu-list">${markup}</ol>
-    `;
-  };
-};
+import { Render } from './render';
 
-export const decorateUnorderedList = list => {
-  const markup = list.createMarkup();
-  list.createMarkup = () => {
-    return `
-      <ul class="menu-list">${markup}</ul>
+export default class SourcesListDecorator extends Render {
+  constructor({ data, container: { id }, markup }) {
+    super(data, id);
+    this.markup = `
+      <ul class="menu-list">
+        ${markup}
+      </ul>
     `;
-  };
-};
+  }
+}
