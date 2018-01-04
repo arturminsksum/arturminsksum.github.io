@@ -63,30 +63,10 @@ class App {
       .catch(error => new Error(error));
   }
 
-  // get articles
-  // getArticles(id) {
-  //   request(
-  //     generateUrl(this.API, this.articlesUrl, this.articlesParams, this.apiKey)
-  //   )
-  //     .then(response => response.json())
-  //     .then(data => renderSection('Articles', data.articles, id))
-  //     .catch(error => new Error(error));
-  // }
-
-  changeArticlesUrlParams(url, params) {
-    this.articlesUrl = url;
-    this.articlesParams = params;
-  }
-
   // load Channel Articles
   loadChannelArticles() {
     document.addEventListener('click', e => {
       if (e.target.dataset.id) {
-        // this.changeArticlesUrlParams(
-        //   'everything',
-        //   `sources=${e.target.dataset.id}`
-        // );
-        // this.getArticles(this.articlesId);
         const articles = new GetArticles(
           generateUrl(
             this.API,
@@ -106,7 +86,6 @@ class App {
     // get news channels
     this.getSources(this.sourcesId);
     // get default articles
-    // this.getArticles(this.articlesId);
     const articles = new GetArticles(
       generateUrl(this.API, this.articlesUrl, this.articlesParams, this.apiKey),
       this.articlesId
