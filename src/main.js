@@ -23,28 +23,3 @@ button.addEventListener('click', () => {
 });
 
 // console.log(example);
-
-class Paragraph {
-  constructor(text) {
-    this.text = text;
-  }
-  render() {
-    return `<p>${this.text}</p>`;
-  }
-}
-class Decorator {
-  constructor(paragraph) {
-    this.paragraph = paragraph;
-  }
-  render() {
-    return `
-      <div style="border: 1px solid black;">
-        ${this.paragraph.render()}
-      </div>
-    `;
-  }
-}
-
-const paragraph = new Paragraph('hello');
-const paragraphWithBorder = new Decorator(paragraph);
-document.write(paragraphWithBorder.render());

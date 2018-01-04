@@ -1,6 +1,7 @@
 import './app.scss';
-import { RenderSourcesList, RenderArticlesList } from './render';
-import SourcesListDecorator from './decorators';
+// import { RenderSourcesList, RenderArticlesList } from './render';
+import renderSection, { request, generateUrl } from './helpers';
+// import SourcesListDecorator from './decorators';
 
 class App {
   constructor(API, apiKey) {
@@ -52,43 +53,23 @@ class App {
     ] = value;
   }
 
-  generateUrl(type, params) {
-    return `${this.API}/${type}?${params}&apiKey=${this.apiKey}`;
-  }
-
-  request(url) {
-    return fetch(url).catch(error => new Error(error));
-  }
-
-  renderSection(type, data, id) {
-    let render;
-    switch (type) {
-      case 'Sources':
-        render = new RenderSourcesList(data, id);
-        render = new SourcesListDecorator(render);
-        break;
-      case 'Articles':
-        render = new RenderArticlesList(data, id);
-        break;
-      default:
-        break;
-    }
-    render.insertHTML();
-  }
-
   // get news channels
   getSources(id) {
-    this.request(this.generateUrl(this.sourcesUrl, this.sourcesParams))
+    request(
+      generateUrl(this.API, this.sourcesUrl, this.sourcesParams, this.apiKey)
+    )
       .then(response => response.json())
-      .then(data => this.renderSection('Sources', data.sources, id))
+      .then(data => renderSection('Sources', data.sources, id))
       .catch(error => new Error(error));
   }
 
   // get articles
   getArticles(id) {
-    this.request(this.generateUrl(this.articlesUrl, this.articlesParams))
+    request(
+      generateUrl(this.API, this.articlesUrl, this.articlesParams, this.apiKey)
+    )
       .then(response => response.json())
-      .then(data => this.renderSection('Articles', data.articles, id))
+      .then(data => renderSection('Articles', data.articles, id))
       .catch(error => new Error(error));
   }
 
