@@ -21,5 +21,18 @@ const request = url => fetch(url).catch(error => new Error(error));
 const generateUrl = (api, type, params, key) =>
   `${api}/${type}?${params}&apiKey=${key}`;
 
+class GetArticles {
+  constructor(url, id) {
+    this.url = url;
+    this.id = id;
+  }
+  request() {
+    request(this.url)
+      .then(response => response.json())
+      .then(data => renderSection('Articles', data.articles, this.id))
+      .catch(error => new Error(error));
+  }
+}
+
 export default renderSection;
-export { request, generateUrl };
+export { request, generateUrl, GetArticles };
