@@ -25,27 +25,3 @@ export class RenderArticlesList extends Render {
     `;
   }
 }
-
-// export class RenderArticlesListProxy {
-//   constructor(data, id) {
-//     if (RenderArticlesListProxy.instance) {
-//       return RenderArticlesListProxy.instance;
-//     }
-
-//     this.data = data;
-//     this.id = id;
-//     this.articlesList = null;
-
-//     RenderArticlesListProxy.instance = this;
-//   }
-//   init() {
-//     if (!this.articlesList) {
-//       this.articlesList = new RenderArticlesList(this.data, this.id);
-//     }
-//   }
-//   insertHTML() {
-//     this.init();
-//     this.articlesList.insertHTML();
-//   }
-// }
-

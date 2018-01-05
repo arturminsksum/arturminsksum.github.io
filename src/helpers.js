@@ -22,17 +22,43 @@ const generateUrl = (api, type, params, key) =>
   `${api}/${type}?${params}&apiKey=${key}`;
 
 class GetArticles {
-  constructor(url, id) {
-    this.url = url;
+  constructor(api, key, id) {
+    this.API = api;
+    this.apiKey = key;
     this.id = id;
+    this.articlesList = {};
   }
-  request() {
-    request(this.url)
+  showArticles(type, params) {
+    if (this.articlesList.hasOwnProperty(params)) {
+      renderSection('Articles', this.articlesList[params], this.id);
+      return;
+    }
+    request(generateUrl(this.API, type, `sources=${params}`, this.apiKey))
       .then(response => response.json())
-      .then(data => renderSection('Articles', data.articles, this.id))
+      .then(data => {
+        renderSection('Articles', data.articles, this.id);
+        this.articlesList[params] = data.articles;
+      })
       .catch(error => new Error(error));
   }
 }
 
+class GetArticlesProxy {
+  constructor(api, key, id) {
+    this.API = api;
+    this.apiKey = key;
+    this.id = id;
+  }
+  init() {
+    if (!this.articlesList) {
+      this.articlesList = new GetArticles(this.API, this.apiKey, this.id);
+    }
+  }
+  showArticles(type, params) {
+    this.init();
+    this.articlesList.showArticles(type, params);
+  }
+}
+
 export default renderSection;
-export { request, generateUrl, GetArticles };
+export { request, generateUrl, GetArticles, GetArticlesProxy };

@@ -29,6 +29,7 @@
     ],
     "vars-on-top": ["error"],
     // "class-methods-use-this": "off",
+    "no-prototype-builtins": "off",
     "function-paren-newline": "off",
     "arrow-parens": "off"
   }

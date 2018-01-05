@@ -1,6 +1,11 @@
 import './app.scss';
 // import { RenderSourcesList, RenderArticlesList } from './render';
-import renderSection, { request, generateUrl, GetArticles } from './helpers';
+import renderSection, {
+  request,
+  generateUrl,
+  GetArticles,
+  GetArticlesProxy
+} from './helpers';
 // import SourcesListDecorator from './decorators';
 
 class App {
@@ -15,8 +20,9 @@ class App {
     this.sourcesParams = 'language=en';
     this.sourcesId = 'sources-list';
     this.articlesUrl = 'top-headlines';
-    this.articlesParams = 'sources=the-next-web,the-verge';
+    this.articlesParams = 'the-next-web,the-verge';
     this.articlesId = 'articles-list';
+    this.articles = null;
 
     App.instance = this;
   }
@@ -66,18 +72,14 @@ class App {
   // load Channel Articles
   loadChannelArticles() {
     document.addEventListener('click', e => {
-      if (e.target.dataset.id) {
-        const articles = new GetArticles(
-          generateUrl(
-            this.API,
-            'everything',
-            `sources=${e.target.dataset.id}`,
-            this.apiKey
-          ),
+      if (!this.articles) {
+        this.articles = new GetArticlesProxy(
+          this.API,
+          this.apiKey,
           this.articlesId
         );
-        articles.request();
       }
+      this.articles.showArticles('everything', e.target.dataset.id);
     });
   }
 
@@ -86,11 +88,8 @@ class App {
     // get news channels
     this.getSources(this.sourcesId);
     // get default articles
-    const articles = new GetArticles(
-      generateUrl(this.API, this.articlesUrl, this.articlesParams, this.apiKey),
-      this.articlesId
-    );
-    articles.request();
+    const articles = new GetArticles(this.API, this.apiKey, this.articlesId);
+    articles.showArticles(this.articlesUrl, this.articlesParams);
     // load Channel Articles
     this.loadChannelArticles();
   }
