@@ -26,18 +26,18 @@ class GetArticles {
     this.API = api;
     this.apiKey = key;
     this.id = id;
-    this.articlesList = {};
+    this.cachedArticles = {};
   }
   showArticles(type, params) {
-    if (this.articlesList.hasOwnProperty(params)) {
-      renderSection('Articles', this.articlesList[params], this.id);
+    if (this.cachedArticles.hasOwnProperty(params)) {
+      renderSection('Articles', this.cachedArticles[params], this.id);
       return;
     }
     request(generateUrl(this.API, type, `sources=${params}`, this.apiKey))
       .then(response => response.json())
       .then(data => {
         renderSection('Articles', data.articles, this.id);
-        this.articlesList[params] = data.articles;
+        this.cachedArticles[params] = data.articles;
       })
       .catch(error => new Error(error));
   }
