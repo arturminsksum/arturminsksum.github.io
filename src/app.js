@@ -27,38 +27,6 @@ class App {
     App.instance = this;
   }
 
-  get getSourcesDefaults() {
-    return console.log(
-      `this.sourcesUrl: ${this.sourcesUrl}\n`,
-      `this.sourcesParams: ${this.sourcesParams}\n`,
-      `this.sourcesId: ${this.sourcesId}`
-    );
-  }
-
-  set changeSourcesDefaults(value) {
-    [
-      this.sourcesUrl = this.sourcesId,
-      this.sourcesParams = this.sourcesId,
-      this.sourcesId = this.sourcesId
-    ] = value;
-  }
-
-  get getArticlesDefaults() {
-    return console.log(
-      `this.articlesUrl: ${this.articlesUrl}\n`,
-      `this.articlesParams: ${this.articlesParams}\n`,
-      `this.articlesId: ${this.articlesId}`
-    );
-  }
-
-  set changeArticlesDefaults(value) {
-    [
-      this.articlesUrl = this.articlesUrl,
-      this.articlesParams = this.articlesParams,
-      this.articlesId = this.articlesId
-    ] = value;
-  }
-
   // get news channels
   getSources(id) {
     request(
