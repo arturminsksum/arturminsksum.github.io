@@ -1,12 +1,7 @@
 import './app.scss';
-// import { RenderSourcesList, RenderArticlesList } from './render';
-import renderSection, {
-  request,
-  generateUrl,
-  GetArticles,
-  GetArticlesProxy
-} from './helpers';
-// import SourcesListDecorator from './decorators';
+import renderSection, { request, generateUrl, GetArticles } from './helpers';
+import loadChannelArticles from './proxy';
+import store, { getArticles } from './store';
 
 class App {
   constructor(API, apiKey) {
@@ -16,11 +11,10 @@ class App {
 
     this.API = API;
     this.apiKey = apiKey;
+
     this.sourcesUrl = 'sources';
     this.sourcesParams = 'language=en';
     this.sourcesId = 'sources-list';
-    this.articlesUrl = 'top-headlines';
-    this.articlesParams = 'the-next-web,the-verge';
     this.articlesId = 'articles-list';
     this.articles = null;
 
@@ -37,29 +31,21 @@ class App {
       .catch(error => new Error(error));
   }
 
-  // load Channel Articles
-  loadChannelArticles() {
-    document.addEventListener('click', e => {
-      if (!this.articles) {
-        this.articles = new GetArticlesProxy(
-          this.API,
-          this.apiKey,
-          this.articlesId
-        );
-      }
-      this.articles.showArticles('everything', e.target.dataset.id);
-    });
-  }
-
   // initialize loading content
   init() {
     // get news channels
     this.getSources(this.sourcesId);
     // get default articles
     const articles = new GetArticles(this.API, this.apiKey, this.articlesId);
-    articles.showArticles(this.articlesUrl, this.articlesParams);
+    const { articlesUrl, articlesParams } = store.getState();
+    articles.showArticles(articlesUrl, articlesParams);
     // load Channel Articles
-    this.loadChannelArticles();
+    document.addEventListener('click', e => {
+      store.dispatch(getArticles('everything', e.target.dataset.id));
+    });
+    store.subscribe(
+      loadChannelArticles(this.API, this.apiKey, this.articlesId)
+    );
   }
 }
 
