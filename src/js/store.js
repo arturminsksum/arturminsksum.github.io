@@ -1,3 +1,5 @@
+import initialState from '../json/initialState.json';
+
 // store
 const createStore = reducer => {
   let state;
@@ -21,13 +23,12 @@ const createStore = reducer => {
 
   dispatch({});
 
-  return { getState, dispatch, subscribe, listeners };
-};
-
-// intial state
-const initialState = {
-  articlesUrl: 'top-headlines',
-  articlesParams: 'the-next-web,the-verge'
+  return {
+    getState,
+    dispatch,
+    subscribe,
+    listeners
+  };
 };
 
 // reducer

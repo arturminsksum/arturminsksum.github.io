@@ -1,4 +1,4 @@
-import './app.scss';
+import '../styles/app.scss';
 import renderSection, { request, generateUrl, GetArticles } from './helpers';
 import loadChannelArticles from './proxy';
 import store, { getArticles } from './store';
